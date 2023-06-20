@@ -1,0 +1,77 @@
+--------------------BANDIT-----------
+LEVEL 0
+ssh bandit0@bandit.labs.overthewire.org -p 2220
+
+LEVEL 0->1
+cat readme
+parola: NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL
+
+LEVEL 1->2
+cat ./-
+parola:rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi
+
+LEVEL 2->3
+cat "spaces in this filename"
+parola:aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG
+
+LEVEL 3->4
+cd inhere
+ls -a #pentru a vedea fisiere ascunse
+cat ./.hidden
+parola:2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe
+
+LEVEL 4->5
+cd inhere
+file ./*
+
+/*
+./-file00: data
+./-file01: data
+./-file02: data
+./-file03: data
+./-file04: data
+./-file05: data
+./-file06: data
+./-file07: ASCII text
+./-file08: data
+./-file09: Non-ISO extended-ASCII text, with no line terminators
+*/
+
+cat ./-file07
+parola:lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR
+
+LEVEL 5->6
+find ./inhere -type f -size 1033c -exec cat '{}' \;
+parola:P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU
+
+LEVEL 6->7
+find / -group bandit6 -user bandit7 -size 33c 2>/dev/null -exec cat "{}" \;
+parola:z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S
+
+
+LEVEL 7->8
+cat data.txt | egrep "millionth" | cut -f2 -d$'\t'
+parola:TESKZC0XvTetK0S9xNwm25STk5iWrBvP
+
+LEVEL 8->9
+cat data.txt | sort | uniq -u
+EN632PlfYiZbn3PhVK3XOGSlNInNE00t
+
+
+LEVEL 9->10
+strings data.txt | egrep "========== *" | cut -f2 -d" "
+parola:G7w8LIi6J3kTb8A7j9LgrywtEUlyyp6s
+
+LEVEL 10->11
+cat data.txt | base64 -d
+parola:6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM
+
+
+LEVEL 11->12
+cat data.txt | tr "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm"
+sau 
+cat data.txt | tr "A-Za-z" "N-ZA-Mn-za-m"
+parola:JVNBBFSmZwKKOP0XbFXOoW8chDz5yVRv
+
+LEVEL 12->13
+
