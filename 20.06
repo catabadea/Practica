@@ -75,3 +75,371 @@ parola:JVNBBFSmZwKKOP0XbFXOoW8chDz5yVRv
 
 LEVEL 12->13
 test
+mkdir /tmp/copie
+cp data.txt /tmp/copie
+cd /tmp/copie
+xxd -r data.txt data2
+file data2
+	data2: gzip compressed data, was "data2.bin", last modified: Sun Apr 23 18:04:23 2023, max compression, from Unix, original size modulo 2^32 581
+mv data2 data2.gz
+gzip -d data2.gz
+file data2
+	data2: bzip2 compressed data, block size = 900k
+mv data2 data2.bz
+bzip2 -d data2.bz
+file data2
+	data2: gzip compressed data, was "data4.bin", last modified: Sun Apr 23 18:04:23 2023, max compression, from Unix, original size modulo 2^32 20480
+mv data2 data2.gz
+gzip -d data2.gz
+file data2
+data2: POSIX tar archive (GNU)
+tar -xvf data2
+	data5.bin
+file data5.bin
+	data5.bin: POSIX tar archive (GNU)
+file data6.bin
+	data6.bin: bzip2 compressed data, block size = 900k
+mv data6.bin data6.bin.bz
+bzip2 -d data6.bin.bz
+file data6.bin
+	data6.bin: POSIX tar archive (GNU)
+tar -xvf data6.bin
+	data8.bin
+file data8.bin
+	data8.bin: gzip compressed data, was "data9.bin", last modified: Sun Apr 23 18:04:23 2023, max compression, from Unix, original size modulo 2^32 49
+mv data8.bin data8.bin.gz
+gzip -d data8.bin.gz
+file data8.bin
+	data8.bin: ASCII text
+cat data8.bin
+	The password is wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw
+parola:wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw
+
+
+LEVEL 13->14
+ssh -i sshkey.private -p 2220 bandit14@bandit.labs.overthewire.org
+parola:fGrHPx402xGC7U7rXKDaxiWFTOiF0ENq (am aflat-o prin  cat /etc/bandit_pass/bandit14 dupa ce m-am conectat cu comanda de mai sus)
+
+
+LEVEL 14->15
+cat /etc/bandit_pass/bandit14 | nc localhost 30000
+parola:jN2kgmIXJ6fShzhT2avhotn4Zcka6tnt
+
+
+LEVEL 15->16
+cat /etc/bandit_pass/bandit15 | openssl s_client -ign_eof -connect localhost:30001
+
+CONNECTED(00000003)
+Can't use SSL_get_servername
+depth=0 CN = localhost
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 CN = localhost
+verify error:num=10:certificate has expired
+notAfter=Jun 19 19:55:03 2023 GMT
+verify return:1
+depth=0 CN = localhost
+notAfter=Jun 19 19:55:03 2023 GMT
+verify return:1
+---
+Certificate chain
+ 0 s:CN = localhost
+   i:CN = localhost
+   a:PKEY: rsaEncryption, 2048 (bit); sigalg: RSA-SHA1
+   v:NotBefore: Jun 19 19:54:03 2023 GMT; NotAfter: Jun 19 19:55:03 2023 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIDCzCCAfOgAwIBAgIEc5dDoTANBgkqhkiG9w0BAQUFADAUMRIwEAYDVQQDDAls
+b2NhbGhvc3QwHhcNMjMwNjE5MTk1NDAzWhcNMjMwNjE5MTk1NTAzWjAUMRIwEAYD
+VQQDDAlsb2NhbGhvc3QwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCt
+2AuuqIRXNPhx3U9puMPufC08iMBd7RwWrIY2I5ghi4+r0iiDnO8vGnyr3vdxz71o
+5HTi8NxI0Rjyr2bjVmyVTQRhRKnThkk5mJo+eBUcj/xM0v5zeUg2tG46kLyZUTIX
+XStRmfqVFZF1gBmqyTpAonjLb9dSORHYZHL97/md5KijUsCzRTwtfWg8r6NpGONX
+7mschSR47RHVkN3GQv8R/f1hdHBq72jU/pxlJslI8ZxmRYyD/xXvXp/tCMBDWx9X
+hjEoznvGjDD86UE+eO4gbGSCsylEZXhrmcfIBOfaOeTCtRVA4q27Ox/HqBuK3eA3
+ONTQMUFcEjjoo2gP7HxvAgMBAAGjZTBjMBQGA1UdEQQNMAuCCWxvY2FsaG9zdDBL
+BglghkgBhvhCAQ0EPhY8QXV0b21hdGljYWxseSBnZW5lcmF0ZWQgYnkgTmNhdC4g
+U2VlIGh0dHBzOi8vbm1hcC5vcmcvbmNhdC8uMA0GCSqGSIb3DQEBBQUAA4IBAQA6
+1Apaal6HliErOMI09PdOMm6t3hW3VMlvcZWWF9BTrkq9N15kRLdKCU2+D1b2SupQ
+zZi4xcG+xwCuiEsviQwFCc26F8Da65LwnG4fmSJL3cHqNAf/+PxdQCiehKN1RSWJ
+N/oBuN0HFb5ygS8mIr1lNhQwJEzUzNDJxfnarlHCuVh3ZFJ6N23OrHkGQkUhdH/U
+3MQHHd51kPMXJn+9QcXlxXXUwuFxQks7rC4M30qu7BGaSEvlCheLPwKH6bvCrFlx
+r+nToRWru9snzswfhXz9mcTCv/HFs87rLDQb3hBmWTFW7QhJTLmmOmVoOLT7eLrz
+TPkI3Cnsz60eOvR/evsw
+-----END CERTIFICATE-----
+subject=CN = localhost
+issuer=CN = localhost
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: RSA-PSS
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 1339 bytes and written 373 bytes
+Verification error: certificate has expired
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 2048 bit
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 10 (certificate has expired)
+---
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: DF4928279ADA60FBF54DC6B8F5CAD8221262E379BC9A5D38B9347868091561E6
+    Session-ID-ctx: 
+    Resumption PSK: 414EE68652549A188B340702526A506B8BFB3FF525AEC6113AE3EF4A710086386D1755D55FA8F1BB7CF94996DF02A151
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - a5 c8 66 77 66 55 7f 99-89 a0 92 98 68 c8 3d ac   ..fwfU......h.=.
+    0010 - 15 11 e5 2c 9e 9f 3a e8-7a 20 12 45 3b f8 54 20   ...,..:.z .E;.T 
+    0020 - 81 59 7f d1 51 00 7e af-ba 9a d2 d2 2a 94 aa dc   .Y..Q.~.....*...
+    0030 - 33 af 12 8e f9 65 63 a1-f8 a9 96 46 ee 1d ff cb   3....ec....F....
+    0040 - 95 6b 1e fb 83 8b 04 81-9e 53 4c 94 fc 09 12 fa   .k.......SL.....
+    0050 - cf c6 97 95 0a 8c 43 25-4a c5 73 2e 4e 02 92 55   ......C%J.s.N..U
+    0060 - 69 e5 fa b2 ae 1c 5f 19-cd c8 7d 5d 5a 92 bf e9   i....._...}]Z...
+    0070 - 05 da 57 1b a6 4b 25 40-3a c8 91 40 ad 60 3a b0   ..W..K%@:..@.`:.
+    0080 - e0 50 49 2e 05 24 92 2a-92 f9 b8 4c e5 17 13 01   .PI..$.*...L....
+    0090 - 1d 07 57 9c 46 60 da 7e-28 ec 90 21 c1 f9 e8 af   ..W.F`.~(..!....
+    00a0 - 73 bd 04 93 0e 04 3f df-b8 db 25 2b f9 1b 57 4d   s.....?...%+..WM
+    00b0 - 8d ab f3 c7 db 9f 35 80-73 23 19 dc 7f 90 54 8e   ......5.s#....T.
+    00c0 - 2d 1d 1d d5 c6 1a b6 99-81 67 0b 3c 65 f3 05 72   -........g.<e..r
+
+    Start Time: 1687252881
+    Timeout   : 7200 (sec)
+    Verify return code: 10 (certificate has expired)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: DBA7FDC72413F270248983F5627F1198F8F65E026C71FB0DDC7B71343709CE42
+    Session-ID-ctx: 
+    Resumption PSK: 89932BAD597FC90D10E69BE8B69921BBCABD21768FCC319C19827C615B4CA6DFF781EB81B3684FB850B70E5EEB3D7261
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - a5 c8 66 77 66 55 7f 99-89 a0 92 98 68 c8 3d ac   ..fwfU......h.=.
+    0010 - 11 e4 3d de d0 0a 1f eb-6c 21 7c bc 24 93 c1 18   ..=.....l!|.$...
+    0020 - 26 d0 48 c7 c0 01 c8 1f-cd a8 3f 2e 0c 5e f9 bd   &.H.......?..^..
+    0030 - 95 b1 63 5d 42 3c 3d 9d-8e 99 d8 54 cb 07 46 95   ..c]B<=....T..F.
+    0040 - 2a 9b da 59 59 f5 f3 fb-44 9c bd 2a 1c 3c 4d e8   *..YY...D..*.<M.
+    0050 - d2 fb 63 2e d0 b6 c9 53-67 f7 ef 03 63 c3 9d 7a   ..c....Sg...c..z
+    0060 - 97 42 13 b7 dc ff 78 57-d7 b8 65 c7 0b 7f 5e 11   .B....xW..e...^.
+    0070 - 86 5f 08 f1 79 1c 7b ce-5b 4b 52 f8 e3 81 37 c5   ._..y.{.[KR...7.
+    0080 - 9d a8 59 e6 a8 27 0b 02-85 66 51 12 3f b8 08 a5   ..Y..'...fQ.?...
+    0090 - 38 c8 9f 2c 68 5e 04 ca-db f4 4b 9c cf 35 22 2d   8..,h^....K..5"-
+    00a0 - 6d 7d 32 4a ee 44 f2 2c-e7 32 ae 7d 0d 0b 3d b5   m}2J.D.,.2.}..=.
+    00b0 - 24 6a 90 68 25 a5 b9 15-cc f1 62 06 50 7c b8 f5   $j.h%.....b.P|..
+    00c0 - 40 4d 91 e1 45 15 4f 21-54 d2 0d 0c 27 1c e8 90   @M..E.O!T...'...
+
+    Start Time: 1687252881
+    Timeout   : 7200 (sec)
+    Verify return code: 10 (certificate has expired)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+Correct!
+JQttfApK4SeyHwDlI9SXGR50qclOAil1
+
+closed
+
+parola:JQttfApK4SeyHwDlI9SXGR50qclOAil1
+
+LEVEL 16->17
+nmap  localhost -p 31000-32000
+openssl s_client -ign_eof localhost:31790
+
+CONNECTED(00000003)
+Can't use SSL_get_servername
+depth=0 CN = localhost
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 CN = localhost
+verify error:num=10:certificate has expired
+notAfter=Jun 19 19:55:03 2023 GMT
+verify return:1
+depth=0 CN = localhost
+notAfter=Jun 19 19:55:03 2023 GMT
+verify return:1
+---
+Certificate chain
+ 0 s:CN = localhost
+   i:CN = localhost
+   a:PKEY: rsaEncryption, 2048 (bit); sigalg: RSA-SHA1
+   v:NotBefore: Jun 19 19:54:03 2023 GMT; NotAfter: Jun 19 19:55:03 2023 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIDCzCCAfOgAwIBAgIEfF/dtDANBgkqhkiG9w0BAQUFADAUMRIwEAYDVQQDDAls
+b2NhbGhvc3QwHhcNMjMwNjE5MTk1NDAzWhcNMjMwNjE5MTk1NTAzWjAUMRIwEAYD
+VQQDDAlsb2NhbGhvc3QwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDM
+ClgCwmbEEBPqJvqn1GIPbwkaIFIxU8El/1oxMNBRZjeBDPCewpZN3lGMwPXguRhN
+B690qndK1WRHO+laxxOsqeO3LMr38soN5UNAFl42qXZxj5RtGRRnZb4jJmN97lLH
+wql0O4IIdFI3pSRZ93bx0R+VXfuSybI9bS0NSxTbInDAIN7AfU5hyPJu+eenWKF0
+II9ENkVHLRCOtYAL3BaOjT8oXwiod88i2YRQNB2VLDYPzDpj5Lnnify9czhCk1Al
+424p5r8p7IZXY9V+0cNyEX481MeReGau8k/tAzPx0t3JPo41Z+aIdZZNCFsfpx7O
+P/HpUzrXBgr+7dV/gQyNAgMBAAGjZTBjMBQGA1UdEQQNMAuCCWxvY2FsaG9zdDBL
+BglghkgBhvhCAQ0EPhY8QXV0b21hdGljYWxseSBnZW5lcmF0ZWQgYnkgTmNhdC4g
+U2VlIGh0dHBzOi8vbm1hcC5vcmcvbmNhdC8uMA0GCSqGSIb3DQEBBQUAA4IBAQCk
+acn6RwPNQU+PMKxC7sVrftpkwwkWtQt65YSXZa80ZzuqQxrph2faAXKkE+BroHsb
+kKk1YmY6lthGD/LlnYDB1jI4TrALEKxs1MKoH8eM9lgdyT1kdM88QtzftlI3u+tO
+TJWlWA37+SlZRdhC55q+sdRORcBtsEgHDHQo8fU7Pt4kqkG8CPm0Ya3uT4j8uqI7
+xwH+3ZDVLMoGlUjqLHaHgazh/mjsG95gBNKMUs7HqUT9fnlqO7B+HJ9cZ6tUpGX0
+CTchh8IyXUoW5KVAgVb0S9v3Bvd/7cml7C8j92D1+8Xm8CROFEAe+/dD0PYajbCY
+yl8uWKoMtY3/As+rEluh
+-----END CERTIFICATE-----
+subject=CN = localhost
+issuer=CN = localhost
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: RSA-PSS
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 1339 bytes and written 373 bytes
+Verification error: certificate has expired
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 2048 bit
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 10 (certificate has expired)
+---
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 9878CECD09134B436DC461EA2C79F6E092D42B026D292EB1B5071156BE9C4D7E
+    Session-ID-ctx: 
+    Resumption PSK: F94390BC7B0C9121ECC5A0A615F310341516178FDE8996D8F18B9CF7042F5A75533C65131F3F71B666C8073938F1888A
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 21 60 c9 1d c8 8a a3 f8-54 f8 77 58 3d 6e 36 03   !`......T.wX=n6.
+    0010 - bd b2 15 99 5c 98 c0 24-5e ff 69 48 75 75 fc 53   ....\..$^.iHuu.S
+    0020 - ea f9 11 07 7a 88 74 66-3a 70 60 f6 60 1d f0 d9   ....z.tf:p`.`...
+    0030 - ed c7 ab 3c 1d b3 b6 17-3b 14 ac 60 9e fe 3b c1   ...<....;..`..;.
+    0040 - 74 02 c2 f6 0a 8a 77 50-e8 e2 6d 77 80 5d 1b f2   t.....wP..mw.]..
+    0050 - 5d d2 0d 57 57 ac 25 60-2b 31 cf ff 6d 3d 33 06   ]..WW.%`+1..m=3.
+    0060 - 1f e0 aa d5 90 59 6a 38-e2 ad f2 47 8a d0 0c 38   .....Yj8...G...8
+    0070 - f8 d3 d7 4f 18 71 3e ca-33 cb 50 c9 43 72 fa bb   ...O.q>.3.P.Cr..
+    0080 - 08 57 e6 4b 0d a6 bc 2d-a3 c8 dc d3 97 5b e2 b4   .W.K...-.....[..
+    0090 - a5 8a 9f cd b4 a9 22 96-71 e7 2f e8 73 8d a5 8c   ......".q./.s...
+    00a0 - 77 52 c3 99 78 45 f7 da-21 08 1c 16 90 61 2f 0a   wR..xE..!....a/.
+    00b0 - 5b 8d 37 d0 f1 05 bf fb-ef 50 d5 bf 76 91 d0 10   [.7......P..v...
+    00c0 - 23 c7 98 ae 75 7a 82 96-e2 5e 0b 25 22 d0 87 32   #...uz...^.%"..2
+
+    Start Time: 1687254421
+    Timeout   : 7200 (sec)
+    Verify return code: 10 (certificate has expired)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 9A106A381E02EB7F4A1D48D53F18448FC1C7409CB1F1C54F4DDBD61BB28975D0
+    Session-ID-ctx: 
+    Resumption PSK: 026B8678E35D14ACB76ADAED4A3FCCABE8B9C345A4380F4A9C7804FF5A17ABF15E8449196084881E362803316F69BBE0
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 21 60 c9 1d c8 8a a3 f8-54 f8 77 58 3d 6e 36 03   !`......T.wX=n6.
+    0010 - 87 fc 37 58 0c d8 90 b7-53 3f d5 a4 19 63 2b d2   ..7X....S?...c+.
+    0020 - 16 15 c5 78 be 38 0b 6f-48 f6 93 55 c4 cd 8a 6c   ...x.8.oH..U...l
+    0030 - 24 75 5d 41 68 82 2d 12-f7 12 ef 1f 67 b3 12 80   $u]Ah.-.....g...
+    0040 - bb a0 d3 64 6f 48 74 df-f6 84 27 f7 f7 76 66 5f   ...doHt...'..vf_
+    0050 - d0 f5 b8 b3 79 b1 a3 0d-16 34 95 18 dd af f6 1d   ....y....4......
+    0060 - 56 2c 92 3a 82 38 f5 ce-57 34 a8 9d 26 8c ec f2   V,.:.8..W4..&...
+    0070 - a3 49 00 02 73 80 f4 25-f4 38 e0 7c bc 17 f0 d1   .I..s..%.8.|....
+    0080 - fb 52 13 48 0a ed 2f 44-17 58 dc ad df 24 7b f6   .R.H../D.X...${.
+    0090 - d9 2b f4 f5 f9 d5 dd 03-81 c4 0c fe 50 66 a5 19   .+..........Pf..
+    00a0 - a7 b9 20 18 b2 ae ba a0-51 98 ed 85 21 4a a7 ef   .. .....Q...!J..
+    00b0 - 51 04 0f 3b b6 28 c0 99-80 f6 b7 14 58 3f 02 94   Q..;.(......X?..
+    00c0 - 58 db bf 5f fe 61 53 7a-01 9c 72 48 d7 da 23 08   X.._.aSz..rH..#.
+
+    Start Time: 1687254421
+    Timeout   : 7200 (sec)
+    Verify return code: 10 (certificate has expired)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+JQttfApK4SeyHwDlI9SXGR50qclOAil1               ------------------------------------> aici trebuie sa punem parola de la nivelul curent
+Correct!
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
+imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
+Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
+DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
+JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
+x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
+KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
+J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
+d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
+YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
+vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
++TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
+8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
+SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
+HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
+SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
+R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
+Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
+R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
+L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
+blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
+YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
+77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
+dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
+vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
+-----END RSA PRIVATE KEY-----
+
+closed
+
+
+cd /tmp
+
+touch pvt.key
+nano pvt.key -> pun cheia privata de mai sus 
+ssh -i sshkey.private -p 2220 bandit14@bandit.labs.overthewire.org
+
+parola:VwOSWtCA7lRKkTfbr2IDh6awj9RNZM5e (am aflat-o dupa ce m-am conectat prin comanda de mai sus [ cat cat /etc/bandit_pass/bandit17 ]
+
+LEVEL 17->18
+diff passwords.new passwords.old 
+si va fi a doua parola afisata 
+parola:hga5tuuCLF6fFzUpnagiMN8ssu9LFrdg
+
+LEVEL 18->19
+ ssh bandit18@bandit.labs.overthewire.org -p 2220 "cat ~/readme" 
+ parola:awhqfNnAbc1naukrpqDYcF95h7HoMTrC
