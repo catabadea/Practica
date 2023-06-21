@@ -1,0 +1,56 @@
+LEVEL 19->20
+./bandit20-do cat /etc/bandit_pass/bandit20\
+parola:VxCazJaVykI6W36BkBU0mJTCM8rR95XT
+
+LEVEL 20->21
+Folosim comanda ls -l si vedem ca este un script suconnect care trebuie sa primeasca ca si argument un port
+echo VxCazJaVykI6W36BkBU0mJTCM8rR95XT | nc -l 3333 &   // pentru a deschide un server pe portul 3333 si  care primeste parola 
+Apoi dam 
+./suconnect 3333
+Read: VxCazJaVykI6W36BkBU0mJTCM8rR95XT
+Password matches, sending next password
+NvEJF7oVjkddltPSrdKEFOllh9V1IBcq
+
+parola:NvEJF7oVjkddltPSrdKEFOllh9V1IBcq
+
+LEVEL 21->22
+cd /etc/cron.d
+ls -l 
+Si observam ca exista fisierul cronjob_bandit22
+cat cronjob_bandit22     // pentru a vedea ce contine
+	@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+	* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+cat /usr/bin/cronjob_bandit22.sh
+	#!/bin/bash
+	chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+	cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv 
+
+parola:WdDozAdTM2z9DiFEQ2mGlwngMfj4EZff
+
+
+LEVEL 22->23
+cd /etc/cron.d
+ls -l
+cat cronjob_bandit22
+	@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+	* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+cat /usr/bin/cronjob_bandit23.sh
+	#!/bin/bash
+
+	myname=$(whoami)
+	mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+	echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+	cat /etc/bandit_pass/$myname > /tmp/$mytarget
+
+echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+	8ca319486bfbbc3663ea0fbe81326349
+cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+
+parola:QYw0Y2aiA672PsMmh9puTQuhoz8SyR2G
+
+
+
+LEVEL 23->24
