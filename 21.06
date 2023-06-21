@@ -54,3 +54,94 @@ parola:QYw0Y2aiA672PsMmh9puTQuhoz8SyR2G
 
 
 LEVEL 23->24
+commit c0a8c3cf093fba65f4ee0e1fe2a530b799508c78
+Author: Ben Dover <noone@overthewire.org>
+Date:   Sun Apr 23 18:04:39 2023 +0000
+
+    initial commit of README.md
+	
+si observam ca a fost o scurgere de informatii la 899ba88df296331cc01f30d022c006775d467f28
+
+git show 899ba88df296331cc01f30d022c006775d467f28
+commit 899ba88df296331cc01f30d022c006775d467f28 (HEAD -> master, origin/master, origin/HEAD)
+Author: Morla Porla <morla@overthewire.org>
+Date:   Sun Apr 23 18:04:39 2023 +0000
+
+    fix info leak
+
+diff --git a/README.md b/README.md
+index b302105..5c6457b 100644
+--- a/README.md
++++ b/README.md
+@@ -4,5 +4,5 @@ Some notes for level29 of bandit.
+ ## credentials
+ 
+ - username: bandit29
+-- password: tQKvmcwNYcFS6vmPHIUSI3ShmsrQZK8S
++- password: xxxxxxxxxx
+
+
+parola:tQKvmcwNYcFS6vmPHIUSI3ShmsrQZK8S
+
+LEVEL 29->30
+mkdir /tmp/b29-30
+cd /tmp/b29-30
+git clone ssh://bandit29-git@localhost:2220/home/bandit29-git/repo
+ls
+cd repo
+cat README.md , dar nu exista informatii in legatura cu vreo scurgere cum a fost la exercitiul anterior
+git branch -a si observam ca exista ramura dev si comutam pe ea
+git checkout dev 
+ls -l 
+cat README.md 
+parola:xbhV3HpNGlTIdnjUrdAlPzc2L6y9EOnS
+
+
+LEVEL 30->31
+mkdir /tmp/b30-31
+cd /tmp/b30-31
+ls 
+cd repo
+ls 
+cat README.md si contine "just an epmty file... muahaha"
+comanda git log nu ofera nicio informatie utila si nici git branch -a 
+git tag 
+git show secret 
+parola: OoffzGDlzhAlerFJ2cAiz1D41JW1Mhmt
+
+
+LEVEL 31->32
+mkdir /tmp/b31-32
+cd /tmp/b31-32
+git clone ssh://bandit31-git@localhost:2220/home/bandit31-git/repo 
+ls -l
+cd repo
+ls -l 
+cat README.md
+		This time your task is to push a file to the remote repository.
+
+	Details:
+		File name: key.txt
+		Content: 'May I come in?'
+		Branch: master
+	
+echo "May I come in?" > file.txt
+
+git add file.txt -f 
+git commit 
+git push 
+parola:rmCBvG56y58BXzv98yZGdO7ATVL5dW8y
+
+LEVEL 32->33
+
+$0
+ls -la
+	total 28
+	drwxr-xr-x  2 root     root     4096 May  7  2020 .
+	drwxr-xr-x 41 root     root     4096 May  7  2020 ..
+	-rw-r--r--  1 root     root      220 May 15  2017 .bash_logout
+	-rw-r--r--  1 root     root     3526 May 15  2017 .bashrc
+	-rw-r--r--  1 root     root      675 May 15  2017 .profile
+	-rwsr-x---  1 bandit33 bandit32 7556 May  7  2020 uppershell
+	 cat /etc/bandit_pass/bandit33
+parola:odHo63fHiFqcWWJG9rLiLDtPm45KzUKy
