@@ -1,0 +1,246 @@
+-------------------------NATAS------------------------
+
+LEVEL 0->1
+click dreapta -> Afiseaza sursa paginii 
+<!--The password for natas1 is g9D9cREhslqBKtcA2uocGHPfMZVzeFK6 -->
+
+parola:g9D9cREhslqBKtcA2uocGHPfMZVzeFK6
+
+
+LEVEL 1->2
+APAS F12 si se deschide Inspect Element, iar parola o gasesc in div id=content
+<!--The password for natas2 is h4ubbcXrWqsTo7GGnnUMLppXbOogfBZ7 -->
+
+parola:h4ubbcXrWqsTo7GGnnUMLppXbOogfBZ7
+
+
+LEVEL 2->3
+CLICK DREAPTA -> AFISEAZA SURSA PAGINII 
+SE OBSERVA IMAGINEA pixel.png care are ca si sursa "files". Accesam files prin http://natas2.natas.labs.overthewire.org/files/ si observam ca este un txt cu parole.
+
+parola:G6ctbMJ5Nb4cbFwhpMPSvxGHhQ7I6W8Q
+
+
+LEVEL 3->4
+CLICK DREAPTA -> AFISEAZA SURSA PAGINII 
+OBSERVAM TEXTUL :  No more information leaks!! Not even Google will find it this time... ; DIN ACESTA DEDUCEM CA S-A FOLOSIT UN STANDARD DE EXCLUDERE A ROBOTILOR (robots.txt)
+IL ACCESAM PRIN : http://natas3.natas.labs.overthewire.org/robots.txt
+
+	User-agent: *
+	Disallow: /s3cr3t/
+	
+ACCESAM : view-source:http://natas3.natas.labs.overthewire.org/s3cr3t/
+ACCESAM APOI users.txt si gasim parola 
+
+parola:tKOcJIbzM4lTs8hbCmzn5Zr4434fGZQm
+
+
+
+
+
+-------------------------------Leviathan--------------------------------
+ssh leviathan0@leviathan.labs.overthewire.org -p 222
+
+
+LEVEL 0->1
+ls -la 
+cd .backup
+ls -la 
+cat bookmarks.html 
+cat bookmarks.html | egrep "password"
+	<DT><A HREF="http://leviathan.labs.overthewire.org/passwordus.html | This will be fixed later, the password for leviathan1 is PPIfmI1qsA" ADD_DATE="1155384634" LAST_CHARSET="ISO-8859-1" ID="rdf:#$2wIU71">password to leviathan1</A>
+parola:PPIfmI1qsA
+
+
+LEVEL 1->2
+ls -la 
+observam ca exista un script cu numele check
+./check 
+	password: leviathan1
+	Wrong password, Good Bye ...
+folosim ltrace ./check pentru a executa instructiune cu instructiune din script
+	__libc_start_main(0x80491e6, 1, 0xffffd504, 0 <unfinished ...>
+	printf("password: ")                                                                   = 10
+	getchar(0xf7fbe4a0, 0xf7fd6f80, 0x786573, 0x646f67password: 
+
+introduc de 2 ori string de la tastura si se va termina programul 
+	__libc_start_main(0x80491e6, 1, 0xffffd504, 0 <unfinished ...>
+	printf("password: ")                                                                   = 10
+	getchar(0xf7fbe4a0, 0xf7fd6f80, 0x786573, 0x646f67password: a
+	)                                    = 97
+	getchar(0xf7fbe4a0, 0xf7fd6f61, 0x786573, 0x646f67)                                    = 10
+	getchar(0xf7fbe4a0, 0xf7fd0a61, 0x786573, 0x646f67a
+	)                                    = 97
+	strcmp("a\na", "sex")                                                                  = -1
+	puts("Wrong password, Good Bye ..."Wrong password, Good Bye ...
+	)                                                   = 29
+	+++ exited (status 0) +++
+	
+OBSERVAM CA VA COMPARA STRINGUL INTRODUS DE LA TASTURA CU "sex". Insemana ca parola este "sex"
+./check 
+si introducem parola sex 
+
+verificam ca ce utilizator suntem logati : whoami
+- suntem ca leviathan2  si inseamna ca avem acces la fisierul in care se afla parola pt leviathan2
+cat /etc/leviathan_pass/leviathan2
+
+parola:mEh5PNl10e
+
+LEVEL 2->3
+ls -la
+OBSERVAM CA EXISTA UN SCRIPT 
+./printfile si asteapta ca si argument un nume de fisier
+Pentru asta vom crea un director in care vom avea un fisier pentru a testa cum ruleaza ./printfile
+mkdir /tmp/ex3
+touch /tmp/ex3/file
+ltrace ./prinfile /tmp/ex3/file 
+	__libc_start_main(0x80491e6, 2, 0xffffd4d4, 0 <unfinished ...>
+	access("/tmp/ex3/file", 4)                                                             = 0
+	snprintf("/bin/cat /tmp/ex3/file", 511, "/bin/cat %s", "/tmp/ex3/file")                = 22
+	geteuid()                                                                              = 12002
+	geteuid()                                                                              = 12002
+	setreuid(12002, 12002)                                                                 = 0
+	system("/bin/cat /tmp/ex3/file" <no return ...>
+	--- SIGCHLD (Child exited) ---
+	<... system resumed> )                                                                 = 0
+	+++ exited (status 0) +++
+
+OBSERVAM CA DACA AVEM UN FISIER COMPUS DIN MAI MULTE CUVINTE SEPARATE PRIN SPATIU, SCRIPTUL VA AFISA DOAR PENTRU PRIMUL CUVANT
+ASTFEL VOM FACE UN ALIAS PENTRU FISIERUL CU PAROLA 
+ln -s /etc/leviathan_pass/leviathan3 pass
+touch "pass file"
+~/prinfile "pass file"
+parola:Q0G8j4sakn
+
+
+LEVEL 3->4
+ls -la
+observam ca exista un script 
+./level3
+trebuie sa introducem o parola asa ca folosim ltrace pentru a vedea cu ce compara parola 
+ltrace ./level3 
+	__libc_start_main(0x80492bf, 1, 0xffffd504, 0 <unfinished ...>
+	strcmp("h0no33", "kakaka")                                                             = -1
+	printf("Enter the password> ")                                                         = 20
+	fgets(Enter the password> a
+	"a\n", 256, 0xf7e2a620)                                                          = 0xffffd2dc
+	strcmp("a\n", "snlprintf\n")                                                           = -1
+	puts("bzzzzzzzzap. WRONG"bzzzzzzzzap. WRONG
+	)                                                             = 19
+	+++ exited (status 0) +++
+OBSERVAM CA PAROLA ESTE COMPARATA CU snlprintf inseamna ca parola pentru script este "snlprintf"
+APOI SUNTEM BAGATI INTR-UN SHELL
+folosim comanda whoami pentru a vedea ca ce utilizatori suntem logati si observam ca suntem "leviathan4"
+inseamna ca putem sa vedem parola 
+cat /etc/leviathan_pass/leviathan4
+
+parola:AgvropI4OA
+
+
+LEVEL 4->5
+ls -la 
+observam un director .trash
+cd .trash 
+ls -la si observam un script 
+./bin  -> AFISEAZA probabil parola in cod binar si trebuie convertit in ascii
+
+
+parola:EKKlTF1Xqs
+
+
+LEVEL 5->6
+ls -la 
+observam ca exista un script si vom folosi ltrace pentru a vedea cum se foloseste 
+ltrace ./leviathan5
+	__libc_start_main(0x8049206, 1, 0xffffd534, 0 <unfinished ...>
+	fopen("/tmp/file.log", "r")                                                            = 0
+	puts("Cannot find /tmp/file.log"Cannot find /tmp/file.log
+	)                                                      = 26
+	exit(-1 <no return ...>
+	+++ exited (status 255) +++
+observam ca deschide /tmp/file.log dar nu il gaseste
+asa ca vom crea un link catre fisierul cu parola
+ln -s /etc/leviathan_pass/leviathan6 /tmp/file.log
+./leviathan5
+
+parola:YZ55XPVk2l
+
+
+LEVEL 6->7
+ls -la
+observam ca exista un script "leviathan6" care cere un pin format din 4 cifre. asa ca vom crea un script care in interiorul sau va apela scriptul "leviathan6"
+mkdir /tmp/ex6
+touch /tmp/ex6/script.sh
+vim /tmp/ex6/script.sh 
+	#!/bin/bash
+	for a in {0000..9999}
+	do
+	~/leviathan6 $a
+	done
+chmod u+x /tmp/ex6/script.sh 
+cat /tmp/ex6
+./script.sh 
+dupa ce introduce parola corecta vom fi redirectionati catre un shell 
+whoami -> leviathan 7
+cat /etc/leviathan_pass/leviathan7
+
+parola:8GpZ5f8Hze
+
+
+
+
+
+
+---------------KRYPTON--------------------
+
+LEVEL 0->1
+Pentru a afla parola echo "S1JZUFRPTklTR1JFQVQ=" | base64 -d
+ssh krypton1@krypton.labs.overthewire.org -p 2231
+parola:KRYPTONISGREAT
+
+LEVEL 1->2
+cd /krypton/
+ls -la 
+cd krypton1
+ls -la
+cat README
+se foloseste ROT13
+cat krypton2
+
+cat krypton2 | tr "NOPQRSTUVWXYZABCDEFGHIJKLM" "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  -> LEVEL TWO PASSWORD ROTTEN
+
+parola:ROTTEN
+
+
+LEVEL 2->3
+cd /krypton/
+ls -la 
+cd krypton2 
+ls -la 
+cat krypton3
+cat krypton3 | tr a-zA-Z o-za-nO-ZA-N
+
+parola:CAESARISEASY
+
+
+LEVEL 3->4
+
+cd /krypton/
+cd krypton3 
+ls -la
+cat found1 
+cat found2 
+cat found3
+am bagat textul din fiecare fisier in decodificator quipquip
+singurul text care a iesit total citet in limba engleza este found1
+am adaugat textul din krypton4 la sfarsitul lui found1 si am refolosit quipquip 
+iar la final: well done the level four password is brute
+parola: BRUTE
+
+
+
+LEVEL 4->5 
+
+cd /krypton/
+cd krypton4 
+
