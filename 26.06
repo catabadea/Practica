@@ -1,0 +1,312 @@
+***General Skills***
+
+
+--repetitions
+cat enc_flag afiseaza:
+VmpGU1EyRXlUWGxTYmxKVVYwZFNWbGxyV21GV1JteDBUbFpPYWxKdFVsaFpWVlUxWVZaS1ZWWnVh
+RmRXZWtab1dWWmtSMk5yTlZWWApiVVpUVm10d1VWZFdVa2RpYlZaWFZtNVdVZ3BpU0VKeldWUkNk
+MlZXVlhoWGJYQk9VbFJXU0ZkcVRuTldaM0JZVWpGS2VWWkdaSGRXCk1sWnpWV3hhVm1KRk5XOVVW
+VkpEVGxaYVdFMVhSbFZrTTBKVVZXcE9VazFXV2toT1dHUllDbUY2UWpSWk1GWlhWa2RHZEdWRlZs
+aGkKYlRrelZERldUMkpzUWxWTlJYTkxDZz09Cg==
+
+Daca folosim cat enc_flag | base64 -d observam ca continutul fisierului se micsoreaza, asa ca folosim comanda "base64 -d" de mai multe ori
+cat enc_flag | base64 -d | base64 -d | base64 -d | base64 -d | base64 -d | base64 -d
+picoCTF{base64_n3st3d_dic0d!n8_d0wnl04d3d_492767d2}
+
+
+
+--chrono
+ssh picoplayer@saturn.picoctf.net -p 60412
+cat /etc/crontab
+picoCTF{Sch3DUL7NG_T45K3_L1NUX_7754e199}
+
+
+--useless
+ssh picoplaye@saturn.picoctf.net -p 58543
+ls -la si gasim un script useless 
+daca dam "cat useless" observam ca este un program care realizeaza operatiile de adunare inmultire impartire, insa nu gasim nicio informatie despre parola
+daca cautam in manualul sau, gasim parola "man useless"
+picoCTF{us3l3ss_ch4ll3ng3_3xpl0it3d_5562}
+
+
+
+
+--Based
+nc jupiter.challenges.picoctf.org 29221
+	Apoi a trebui sa convertesc pe rand din binar, octal si hexa in text. Am folosit un convertor de pe internet. Si dupa aceea am obtinut parola.
+picoCTF{learning_about_converting_values_00a975ff}
+
+
+
+--HashingJobApp
+nc saturn.picoctf.net 55823
+si am primit mesajul : Please md5 hash the text between quotes, excluding the quotes: 'Cleopatra'
+am intrat pe site-ul https://www.md5hashgenerator.com/ si am introdus textul Cleopatra si mi-a generat cheia. Apoi am repetat de 2 ori acelasi lucru si mi-a dat parola.
+picoCTF{4ppl1c4710n_r3c31v3d_674c1de2}
+
+
+
+
+--flag_shop
+observam ca toate variabile sunt de tip int, deci daca la optiunea 2 si 1 adaugam un numar mai mare de ex 1000000000000, sistemul va fi buguit. si astfel obtinem parola.
+picoCTF{m0n3y_bag5_9c5fac9b}
+
+
+--mus1c
+Folosind un program rockstar code "https://codewithrockstar.com/online", am obtinut 
+114
+114
+114
+111
+99
+107
+110
+114
+110
+48
+49
+49
+51
+114
+Apoi folosind un convertor online "https://www.duplichecker.com/ascii-to-text.php" am aflat parola.
+picoCTF{rrrocknrn0113r}
+
+
+--1_wanna_b3_a_r0ck5tar
+am instalat un program care transforma cod scris in rockstar in limbaj python
+sudo pip install rockstar-py
+rockstar-py -i lyrics.txt
+cat output.py
+si contine:	
+	Rocknroll = True
+	Silence = False
+	a_guitar = 10
+	Tommy = 44
+	Music = 170
+	the_music = input()
+	if the_music == a_guitar:
+		print("Keep on rocking!")
+		the_rhythm = input()
+		if the_rhythm - Music == False:
+			Tommy = 66
+			print(Tommy!)
+			Music = 79
+			Jamming = 78
+			print(Music!)
+			print(Jamming!)
+			Tommy = 74
+			print(Tommy!)
+			They are dazzled audiences
+			print(it!)
+			Rock = 86
+			print(it!)
+			Tommy = 73
+			print(it!)
+			break
+			print("Bring on the rock!")
+			Else print("That ain't it, Chief")
+			break 
+si avem de convertit in text: 66 79 78 74 79 86 73 
+picoCTF{BONJOVI}
+
+
+
+--Special
+ssh -p 51868 ctf-player@saturn.picoctf.net
+Daca folosim comenziile singure nu se vor executa, dar daca folosind | se executa cele dupa |. 
+cd | find .
+	Ad | find . 
+	sh: 1: Ad: not found
+	.
+	./blargh
+	./blargh/flag.txt
+	./.cache
+	./.cache/motd.legal-displayed
+	
+cd | cat ./blargh/flag.txt
+picoCTF{5p311ch3ck_15_7h3_w0r57_6a2763f6}
+
+
+
+--Specialer
+observam ca nu merg comenziile uzuale cd, find , ls -la,cat   etc
+insa comanda echo merge 
+echo * afiseaza: abra ala sim
+echo */* afiseaza toate fisierele 
+	abra/cadabra.txt abra/cadaniel.txt ala/kazam.txt ala/mode.txt sim/city.txt sim/salabim.txt
+
+folosind echo "$(<numefisier.txt)" vom afisa continutul unui fisier folosind doar comanda echo. Apoi folosim comanda pana gasim parola.
+Gasim in echo "^$(<ala/kazam.txt)"
+picoCTF{y0u_d0n7_4ppr3c1473_wh47_w3r3_d01ng_h3r3_38f5cc78}
+
+
+
+--ASCII Numbers
+folosind CyberChef(recomandare de catre Hints) 
+picoCTF{45c11_n0_qu35710n5_1ll_t311_y3_n0_l135_445d4180}
+
+
+--plumbing
+nc jupiter.challenges.picoctf.org 7480 -> se blocheaza deoarece afiseaza foarte multe linii
+incerca sa caut cuvantul pico 
+nc jupiter.challenges.picoctf.org 7480 | egrep "pico"
+picoCTF{digital_plumb3r_06e9d954}
+
+
+
+--money-ware
+picoCTF{Petya}
+
+
+--Permisions
+ne conectam
+apoi ne conectam fisierle root
+cd /
+ls -la
+cd challenge/
+ls -la
+cat metadata.json
+picoCTF{uS1ng_v1m_3dit0r_021d10ab}
+
+
+
+
+
+
+****Web Exploitation
+
+
+--Local Authority
+am incercat sa ma loghez cu datele a si a, insa a da fail
+Insa am intrat in source page si am gasit un secure.js pe care l-am deschis 
+	function checkPassword(username, password)
+	{
+	  if( username === 'admin' && password === 'strongPassword098765' )
+	  {
+		return true;
+	  }
+	  else
+	  {
+		return false;
+	  }
+	}
+m-am reconectat cu datele de mai sus
+picoCTF{j5_15_7r4n5p4r3n7_a8788e61}
+
+--Inspect HTML
+click dreapta, apoi am dat pe source page
+<!--picoCTF{1n5p3t0r_0f_h7ml_fd5d57bd}--> 
+
+
+--Includes
+click dreapta -> afiseaza sursa paginii
+observam doua fisiere style.css si script.js in care gasim jumate din flag
+ picoCTF{1nclu51v17y_1of2_f7w_2of2_df589022}
+ 
+ 
+ 
+ --Insp3ct0r
+ click dreapta view source page 
+ <!-- Html is neat. Anyways have 1/3 of the flag: picoCTF{tru3_d3 --> prima parte din flag
+ observam ca exista un fisier java "myjs.js" in care gasim a treia parte 
+ /* Javascript sure is neat. Anyways part 3/3 of the flag: _lucky?832b0699} */
+ iar in "mycss.css" gasim a doua parte  /* You need CSS to make pretty pages. Here's part 2/3 of the flag: t3ct1ve_0r_ju5t */
+ 
+ picoCTF{tru3_d3t3ct1ve_0r_ju5t_lucky?832b0699}
+ 
+ 
+ 
+ --Scavenger Hunt
+ click dreapta view source page
+ gasim prima parte din flag :<!-- Here's the first part of the flag: picoCTF{t -->
+ in fisierul "mycss.css" gasim a doua parte din flag: /* CSS makes the page look nice, and yes, it also has part of the flag. Here's part 2: h4ts_4_l0 */
+ in fisierul java gasim /* How can I keep Google from indexing my website? */ care ne duce cu gandul la fisierul robots.txt care blocheaza indexariile
+ intram pe http://mercury.picoctf.net:27278/robots.txt si gasim a treia parte a flagului
+ din I think this is an apache server... can you Access the next flag? deducem ca vom gasi urmatorul flag in fisierul de acces al serverului apache, adica .htaccess
+ accesam http://mercury.picoctf.net:27278/.htaccess si gasim a patra parte a flagului
+ din I love making websites on my Mac, I can Store a lot of information there. deducem ca urmatorul flag este in .DS_Store,deoarece mentioneaza de MAC 
+ si gasim ultima parte  http://mercury.picoctf.net:27278/.DS_Store
+ picoCTF{th4ts_4_l0t_0f_pl4c3s_2_lO0k_a69684fd}
+ 
+ 
+ --where are the robots
+ din hints deducem faptul ca mai multe informatii gasim in robots.txt si gasim 
+ User-agent: *
+Disallow: /477ce.html
+asa ca vom cauta in https://jupiter.challenges.picoctf.org/problem/36474/477ce.html si gasim flagul 
+picoCTF{ca1cu1at1ng_Mach1n3s_477ce}
+
+
+--dont-use-client-side
+click dreapta view source page
+si gasim mai multe if-uri in care gasim pe bucati flagul
+
+ function verify() {
+    checkpass = document.getElementById("pass").value;
+    split = 4;
+    if (checkpass.substring(0, split) == 'pico') {
+      if (checkpass.substring(split*6, split*7) == 'a3c8') {
+        if (checkpass.substring(split, split*2) == 'CTF{') {
+         if (checkpass.substring(split*4, split*5) == 'ts_p') {
+          if (checkpass.substring(split*3, split*4) == 'lien') {
+            if (checkpass.substring(split*5, split*6) == 'lz_1') {
+              if (checkpass.substring(split*2, split*3) == 'no_c') {
+                if (checkpass.substring(split*7, split*8) == '9}') {
+                  alert("Password Verified")
+                  }
+                }
+              }
+      
+            }
+          }
+        }
+      }
+    }
+    else {
+      alert("Incorrect password");
+    }
+	
+picoCTF{no_clients_plz_1a3c89}
+
+
+--login
+click dreapta view page source 
+observam ca exista un fisier java pe care il deschidem 
+(async()=>{await new Promise((e=>window.addEventListener("load",e))),document.querySelector("form").addEventListener("submit",(e=>{e.preventDefault();const r={u:"input[name=username]",p:"input[name=password]"},t={};for(const e in r)t[e]=btoa(document.querySelector(r[e]).value).replace(/=/g,"");return"YWRtaW4"!==t.u?alert("Incorrect Username"):"cGljb0NURns1M3J2M3JfNTNydjNyXzUzcnYzcl81M3J2M3JfNTNydjNyfQ"!==t.p?alert("Incorrect Password"):void alert(`Correct Password! Your flag is ${atob(t.p)}.`)}))})();
+
+din el obtinem parola si utilizator, dar in base64 
+utilizator:admin
+insa parola este chiar flagul cautat 
+parola:picoCTF{53rv3r_53rv3r_53rv3r_53rv3r_53rv3r}
+
+
+--Roboto Sans
+din sursa paginii cam nu putem afla nicio informatie, asa ca incercam sa vedem daca gasim in robots.txt 
+in robots.txt gasim 3 coduri in base64 
+
+ZmxhZzEudHh0;anMvbXlmaW
+anMvbXlmaWxlLnR4dA==
+svssshjweuiwl;oiho.bsvdaslejg
+
+care inseamna:
+flag1.txtjs/myfi
+js/myfile.txt
+,z谖/u%z8
+
+in flag1.txtjs/myfi nu gasim nimic 
+dar in js/myfile.txt gasim flagul : http://saturn.picoctf.net:64271/js/myfile.txt
+picoCTF{Who_D03sN7_L1k5_90B0T5_032f1c2b}
+
+
+
+--logon
+dupa ce ne-am logat cu orice user si parola, folosind cookie Editor, dam valoarea True la Admin si dupa dam un refresh la pagina 
+picoCTF{th3_c0nsp1r4cy_l1v3s_d1c24fef}
+
+
+
+--Cookies
+modificam cu cookie editor "name" si varianta corecta este 18 si obtinem flag
+picoCTF{3v3ry1_l0v3s_c00k135_88acab36}
+
+
