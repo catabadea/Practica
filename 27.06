@@ -1,0 +1,136 @@
+***Forensics
+
+--Lookey here
+am deschis .txt si am cautat cu find "pico"
+picoCTF{gr3p_15_@w3s0m3_4c479940}
+
+
+--Glory of the Garden
+am deschis imaginea in vs code cu modul hex editor.
+am cautat cuvantul pico
+picoCTF{more_than_m33ts_the_3y3657BaB2C}
+
+
+-Enhance!
+click dreapta view source page
+observ ca flag este impartit pe mai multe randuri in interiorul etichetei "text"
+picoCTF{3nh4nc3d_d0a757bf}  
+
+
+--Redaction gone wrong
+am deschis pdf, am dat CTRL+A CTRL+C
+Financial Report for ABC Labs, Kigali, Rwanda for the year 2021.
+Breakdown - Just painted over in MS word.
+
+Cost Benefit Analysis
+Credit Debit
+This is not the flag, keep looking
+Expenses from the
+picoCTF{C4n_Y0u_S33_m3_fully}
+Redacted document.
+
+picoCTF{C4n_Y0u_S33_m3_fully}
+
+
+--File types
+observam ca fisierul nu este un pdf, cat Flag.pdf 
+Este un script in bash
+
+
+--So Meta
+am deschis imaginea cu vs code in modul hex editor
+am cautat cuvantul "pico"
+picoCTF{s0_m3ta_fec06741}
+
+
+--like1000
+am observat ca sunt 1000 de arhive una in alta, asa ca am creat un script pentru a dezarhiva toate cele 1000 de arhive.
+#!/bin/bash
+	for (( i=1000; i>=1; i-- ))
+	do
+		filename="${i}.tar"
+		if [ -f "$filename" ]; then
+			tar -xf "$filename"
+			echo "Arhiva $filename a fost dezarhivată."
+		else
+			echo "Arhiva $filename nu a fost găsită."
+		fi
+	done
+dupa rulare am ramas cu filler.txt si flag.png
+am deschis png si era flag
+picoCTF{l0t5_0f_TAR5}
+
+
+
+
+
+****Web Exploitation
+--Search source
+click dreapta view source page 
+observam ca sunt mai multe fisiere css si cautam prin ele
+gasim flagul in css/style.css
+picoCTF{1nsp3ti0n_0f_w3bpag3s_ec95fa49}
+
+
+
+--GET aHEAD
+am intrat in inspect element la network si am observat ca metoda este GET , asa ca am schimbat-o in HEAD si am dat retrimitere
+picoCTF{r3j3ct_th3_du4l1ty_2e5ba39f}
+
+
+--picobrowser
+cand apas pe butonul Flag primim mesajul ca nu suntem user-agent de tip picobrowser. Astfel trebuie sa schimbam agent. Am descarcat extensia pe firefox "User-Agent Switch"
+picoCTF{p1c0_s3cr3t_ag3nt_e9b160d0}
+
+
+--Power Cookie
+intru in inspect element si merg la stocare sa vad cookie 
+observ ca isadmin are valoarea 0 si o schimb in 1 si dau refresh
+picoCTF{gr4d3_A_c00k13_0d351e23}
+
+
+
+--Some Assembly Required 1
+click dreapta view source page si observam un fisier java
+in fisierul java observam './JIFxzHyW8W', adica o cale
+o accesam si se descarca un fisier
+deschidem fisierul si gasim flag
+picoCTF{a2843c6ba4157dc1bc052818a6242c3f}
+
+
+--MatchTheRegex
+click dreapta view source page si am observat // ^p.....F!? si am introdus apoi in pagina picoCTF si mi-a dat flag 
+picoCTF{succ3ssfully_matchtheregex_f89ea585}
+
+
+***Cryptography
+--Mod 26
+am intrat pe site-ul https://cryptii.com/pipes/rot13-decoder si am introdus textul
+picoCTF{next_time_I'll_try_2_rounds_of_rot13_Aphnytiq}
+
+
+--13
+am intrat pe site-ul https://cryptii.com/pipes/rot13-decoder si am introdus textul
+picoCTF{not_too_bad_of_a_problem}
+
+
+
+--The Numbers
+am intrat pe site-ul https://www.boxentriq.com/code-breaking/a1z26 si am introdus numerele din imagine
+PICOCTF{THENUMBERSMASON}
+
+
+
+--Mind your Ps and Qs
+am folosit site-ul https://www.dcode.fr/rsa-cipher pentru a afla flag
+picoCTF{sma11_N_n0_g0od_45369387}
+
+
+--Vigenere
+am folosit site-ul https://www.boxentriq.com/code-breaking/vigenere-cipher 
+picoCTF{D0NT_US3_V1G3N3R3_C1PH3R_ae82272q}
+
+
+--Flags
+imaginea respectiva reprezinta semnalele maritime internationale ale steagurilor 
+picoCTF{F1AG5AND5TUFF}
