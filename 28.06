@@ -1,0 +1,337 @@
+***Reverse Engineering
+--Safe Opener
+din fisierul java observam ca dupa ce introducem o parola o codifica in base64.
+apoi in :
+	public static boolean openSafe(String password) {
+			String encodedkey = "cGwzYXMzX2wzdF9tM18xbnQwX3RoM19zYWYz";
+			
+			if (password.equals(encodedkey)) {
+				System.out.println("Sesame open");
+				return true;
+			}
+			else {
+				System.out.println("Password is incorrect\n");
+				return false;
+			}
+		}
+se observa ca va compara parola codificata cu cGwzYXMzX2wzdF9tM18xbnQwX3RoM19zYWYz.
+Deci trebuie sa o decodificam in base64 si aflam flag.
+echo "cGwzYXMzX2wzdF9tM18xbnQwX3RoM19zYWYz" |base64 -d
+picoCTF{pl3as3_l3t_m3_1nt0_th3_saf3}
+
+
+
+--Bit-O-Asm-1
+conform liniei <+15>:    mov    eax,0x30
+eax va avea in memorie salvat 0x30 care in decimal reprezinta numarul 48
+picoCTF{48}
+
+
+--Bit-O-Asm-2
+conform liniei <+22>:    mov    eax,DWORD PTR [rbp-0x4] eax va contine DWORD PTR [rbp-0x4]
+iar conform liniei de mai sus, <+15>:    mov    DWORD PTR [rbp-0x4],0x9fe1a , DWORD PTR [rbp-0x4] contine 0x9fe1a
+Deci eax va avea valoarea 0x9fe1a care in decimal este 654874
+picoCTF{654874}
+
+
+--Bit-O-Asm-3
+codul arata asa:
+<+0>:     endbr64 
+<+4>:     push   rbp
+<+5>:     mov    rbp,rsp
+<+8>:     mov    DWORD PTR [rbp-0x14],edi    
+<+11>:    mov    QWORD PTR [rbp-0x20],rsi   
+<+15>:    mov    DWORD PTR [rbp-0xc],0x9fe1a     ; [rbp-0xc] = 0x9fe1a
+<+22>:    mov    DWORD PTR [rbp-0x8],0x4		; [rbp-0x8] = 0x4
+<+29>:    mov    eax,DWORD PTR [rbp-0xc]		; eax= 0x9fe1a
+<+32>:    imul   eax,DWORD PTR [rbp-0x8]		;eax= eax * 0x4=0x9fe1a * 0x4= 27 F868
+<+36>:    add    eax,0x1f5						;eax= 27 F868 + 0x1f5=27 FA5D=2619997
+<+41>:    mov    DWORD PTR [rbp-0x4],eax		;[rbp-0x4]=2619997
+<+44>:    mov    eax,DWORD PTR [rbp-0x4]		;eax=2619997
+<+47>:    pop    rbp
+<+48>:    ret
+
+picoCTF{2619997}
+
+
+--Bit-O-Asm-4
+codul arata asa:
+<+0>:     endbr64 
+<+4>:     push   rbp
+<+5>:     mov    rbp,rsp
+<+8>:     mov    DWORD PTR [rbp-0x14],edi    
+<+11>:    mov    QWORD PTR [rbp-0x20],rsi
+<+15>:    mov    DWORD PTR [rbp-0x4],0x9fe1a	;[rbp-0x4]=0x9fe1a
+<+22>:    cmp    DWORD PTR [rbp-0x4],0x2710		; comapara 0x9fe1a cu 0x2710
+<+29>:    jle    0x55555555514e <main+37>		;nu intra 	
+<+31>:    sub    DWORD PTR [rbp-0x4],0x65		;	[rbp-0x4]=0x9fe1a-0x65=9 FDB5
+<+35>:    jmp    0x555555555152 <main+41>		;
+<+37>:    add    DWORD PTR [rbp-0x4],0x65
+<+41>:    mov    eax,DWORD PTR [rbp-0x4]		;eax=9FDB5=654773
+<+44>:    pop    rbp
+<+45>:    ret
+picoCTF{654773}
+
+
+
+--GDB Test Drive
+am rulat toate comenziile  (date in enunt) si am aflat flag
+	$ chmod +x gdbme
+	$ gdb gdbme
+	(gdb) layout asm
+	(gdb) break *(main+99)
+	(gdb) run
+	(gdb) jump *(main+104)
+picoCTF{d3bugg3r_dr1v3_7776d758}
+
+
+--bloat.py
+am deschis fisierul .py: gedit bloat.flag.py si am observat ca compara parola in felul urmator: if arg432 == a[71]+a[64]+a[79]+a[79]+a[88]+a[66]+a[71]+a[64]+a[77]+a[66]+a[68]:
+    return True
+asa ca am modificat asa :
+	def arg133(arg432):
+
+	  print(a[71])
+
+	  print(a[64])
+
+	  print(a[79])
+
+	  print(a[79])
+
+	  print(a[88])
+
+	  print(a[66])
+
+	  print(a[71])
+
+	  print(a[64])
+
+	  print(a[77])
+
+	  print(a[66])
+
+	  print(a[68])
+
+	  if arg432 == a[71]+a[64]+a[79]+a[79]+a[88]+a[66]+a[71]+a[64]+a[77]+a[66]+a[68]:
+
+		return True
+
+	  else:
+
+		print(a[51]+a[71]+a[64]+a[83]+a[94]+a[79]+a[64]+a[82]+a[82]+a[86]+a[78]+\
+
+	a[81]+a[67]+a[94]+a[72]+a[82]+a[94]+a[72]+a[77]+a[66]+a[78]+a[81]+\
+
+	a[81]+a[68]+a[66]+a[83])
+
+		sys.exit(0)
+si dupa ce am rulat si am introdus orice parola, mi a aparut fiecare litera
+si am rulat inca o data si am introdus parola corecta si am obtinut flag
+picoCTF{d30bfu5c4710n_f7w_5e14b257}
+
+
+
+
+--asm1
+fisierul contine:
+
+asm1:
+	<+0>:	push   ebp							ebp=0x6fa
+	<+1>:	mov    ebp,esp						
+	<+3>:	cmp    DWORD PTR [ebp+0x8],0x3a2		
+	<+10>:	jg     0x512 <asm1+37>					intra pentru ca este mai mare 0x6fa decat 0x3a2
+	<+12>:	cmp    DWORD PTR [ebp+0x8],				
+	<+19>:	jne    0x50a <asm1+29>					
+	<+21>:	mov    eax,DWORD PTR [ebp+0x8]		
+	<+24>:	add    eax,0x12
+	<+27>:	jmp    0x529 <asm1+60>
+	<+29>:	mov    eax,DWORD PTR [ebp+0x8]
+	<+32>:	sub    eax,0x12
+	<+35>:	jmp    0x529 <asm1+60>
+	<+37>:	cmp    DWORD PTR [ebp+0x8],0x6fa	ajunge aici
+	<+44>:	jne    0x523 <asm1+54>				nu sare pentru ca este egala
+	<+46>:	mov    eax,DWORD PTR [ebp+0x8]
+	<+49>:	sub    eax,0x12						eax=0x6fa-0x12=0x6eb
+	<+52>:	jmp    0x529 <asm1+60>				sare la asm1+60
+	<+54>:	mov    eax,DWORD PTR [ebp+0x8]
+	<+57>:	add    eax,0x12
+	<+60>:	pop    ebp	
+	<+61>:	ret  
+
+
+flag:0x6e8
+
+
+
+--vault-door-training
+in interiorul fisierului gasim parola 
+picoCTF{w4rm1ng_Up_w1tH_jAv4_eec0716b713}
+
+
+--vault-door-1
+in interiorul fisierului gasim un vector care nu este aranjat
+picoCTF{d35cr4mbl3_tH3_cH4r4cT3r5_ff63b0}
+
+
+--vault-door-3
+observam ca exista in fisier o parola codificata "jU5t_a_sna_3lpm18gb41_u_4_mfr340"
+asa ca voi realiza operatia inversa prin python
+	password = "jU5t_a_sna_3lpm18gb41_u_4_mfr340"
+	buffer = [""] * 32
+
+	i = 0
+	while i < 8:
+		buffer[i] = password[i]
+		i += 1
+
+	while i < 16:
+		buffer[i] = password[23 - i]
+		i += 1
+
+	while i < 32:
+		buffer[i] = password[46 - i]
+		i += 2
+
+	i = 31
+	while i >= 17:
+		buffer[i] = password[i]
+		i -= 2
+
+	print("picoCTF{" + "".join(buffer) + "}")
+
+picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_1fb380}
+
+
+--vault-door-4
+observam ca in interiorul fisierului exista o parola care este scrisa sub forma de decimal,hexa,octal
+
+ byte[] myBytes = {
+            106 , 85  , 53  , 116 , 95  , 52  , 95  , 98  ,   ->jU5t_4_b
+            0x55, 0x6e, 0x43, 0x68, 0x5f, 0x30, 0x66, 0x5f,	  ->UnCh_0f_
+            0142, 0131, 0164, 063 , 0163, 0137, 0143, 061 ,		->bYt3s_c1
+            '9' , '4' , 'f' , '7' , '4' , '5' , '8' , 'e' ,     ->94f7458e
+        };
+        
+convertim si obtinem :jU5t_4_bUnCh_0f_5tuff_g41
+picoCTF{jU5t_4_bUnCh_0f_bYt3s_c194f7458e}
+
+
+
+--vault-door-5
+observam ca parola este codata cu ajutorul base64 : JTYzJTMwJTZlJTc2JTMzJTcyJTc0JTMxJTZlJTY3JTVmJTY2JTcyJTMwJTZkJTVmJTYyJTYxJTM1JTY1JTVmJTM2JTM0JTVmJTMwJTYyJTM5JTM1JTM3JTYzJTM0JTY2
+echo "JTYzJTMwJTZlJTc2JTMzJTcyJTc0JTMxJTZlJTY3JTVmJTY2JTcyJTMwJTZkJTVmJTYyJTYxJTM1JTY1JTVmJTM2JTM0JTVmJTMwJTYyJTM5JTM1JTM3JTYzJTM0JTY2" | base64 -d 
+obtinem: %63%30%6e%76%33%72%74%31%6e%67%5f%66%72%30%6d%5f%62%61%35%65%5f%36%34%5f%30%62%39%35%37%63%34%66
+echo "%63%30%6e%76%33%72%74%31%6e%67%5f%66%72%30%6d%5f%62%61%35%65%5f%36%34%5f%30%62%39%35%37%63%34%66" | tr -d '%' | xxd -r -p
+obtinem:c0nv3rt1ng_fr0m_ba5e_64_0b957c4f
+picoCTF{c0nv3rt1ng_fr0m_ba5e_64_0b957c4f}
+
+
+--vault-door-6
+ for (int i=0; i<32; i++) {
+            if (((passBytes[i] ^ 0x55) - myBytes[i]) != 0) {
+                return false;
+            }
+        }
+	rezulta ca passBytes[i]^0x55=myBytes[i]
+	passBytes[i]=myBytes[i]^0x55
+	
+	
+	
+	byte[] myBytes = {
+            0x3b, 0x65, 0x21, 0xa , 0x38, 0x0 , 0x36, 0x1d,	->
+            0xa , 0x3d, 0x61, 0x27, 0x11, 0x66, 0x27, 0xa ,	->
+            0x21, 0x1d, 0x61, 0x3b, 0xa , 0x2d, 0x65, 0x27,	->
+            0xa , 0x6c, 0x60, 0x37, 0x30, 0x60, 0x31, 0x36,	->
+        };
+vom face un program in python:
+passBytes = [None] * 32
+myBytes = [
+			0x3b, 0x65, 0x21, 0xa , 0x38, 0x0 , 0x36, 0x1d,
+            0xa , 0x3d, 0x61, 0x27, 0x11, 0x66, 0x27, 0xa ,
+            0x21, 0x1d, 0x61, 0x3b, 0xa , 0x2d, 0x65, 0x27,
+            0xa , 0x6c, 0x60, 0x37, 0x30, 0x60, 0x31, 0x36,	
+        ]
+
+for i in range(32):
+    passBytes[i] = myBytes[i] ^ 0x55
+
+for i in range(32):
+    print(chr(passBytes[i]), end="")
+
+picoCTF{n0t_mUcH_h4rD3r_tH4n_x0r_95be5dc}
+
+
+
+
+
+***Web Exploitation
+--Irish-Name-Repo 1
+am incercat sa ma conectez cu admin admin, insa nu era contul corect, asa ca am incercat cel mai simplu SQL Injection, adica sa introduc la user ' OR 1=1--
+si orice parola, si m-am putut conecta 
+picoCTF{s0m3_SQL_f8adf3fb}
+
+
+
+--Irish-Name-Repo 2
+am cautat pe site-ul https://www.invicti.com/blog/web-security/sql-injection-cheat-sheet/  (cele mai frecvente SQL Injection)
+si am gasit admin'-- si orice parola
+picoCTF{m0R3_SQL_plz_aee925db}
+
+
+--SQL Direct
+m-am conectat si am dat \?
+am gasit comanda \dt care imi arata toate tabele
+        List of relations
+ Schema | Name  | Type  |  Owner   
+--------+-------+-------+----------
+ public | flags | table | postgres
+(1 row)
+
+
+pico=# select * from flags ;
+ id | firstname | lastname  |                address                 
+----+-----------+-----------+----------------------------------------
+  1 | Luke      | Skywalker | picoCTF{L3arN_S0m3_5qL_t0d4Y_21c94904}
+  2 | Leia      | Organa    | Alderaan
+  3 | Han       | Solo      | Corellia
+(3 rows)
+
+picoCTF{L3arN_S0m3_5qL_t0d4Y_21c94904}
+
+
+
+--Java Code Analysis!?!
+am intrat pe site, dar nu pot vedea pdf cu flag deoarece nu am drepturi de admin
+intram la stocare locala si schimbam datele astfel incat sa avem rol de admin
+intram pe json web decode pentru a schimba auth-token
+picoCTF{w34k_jwt_n0t_g00d_602ce414}
+
+
+
+--Some Assembly Required 2
+click dreapta view source page 
+observam ca este un fisier java 
+in fisier gasim o posibila cale catre o alta pagina './aD8SvhyVkb'
+o accesam si se descarca un fisier
+si gasim la sfarsitul fisierului un text codat xakgK\Nsmn;j8j<9;<?=l?k88mm1n9i1j>:8k?l0u
+il introducem in cyberchef
+picoCTF{ef3b0b413475d7c00ee9f1a9b620c7d8}
+
+
+--Irish-Name-Repo 3
+incercam sa ne logam, insa ne da fail.
+Incercam sa cautam o metoda pentru a arata ce comanda se foloseste pentru baza de date 
+intram in inspect element si gasim o linie <input type="hidden" name="debug" value="0"> si punem 1 la value
+incercam sa ne conectam din nou, si ne apare :
+
+password: test
+SQL query: SELECT * FROM admin where password = 'grfg'
+
+Login failed.
+incercam sa facem un sql injection prin ' or 1=1; insa ne afiseaza ca "or" se transforma in "be"
+incercam ' be 1=1;
+picoCTF{3v3n_m0r3_SQL_7f5767f6}
+
+
+
